@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1535744978 source:d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\main.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<fstream>
+	"funcoes.h"
+
+1535745768 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\funcoes.h
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<fstream>
+	"struct.h"
+	<string.h>
+
+1535743677 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\struct.h
+
