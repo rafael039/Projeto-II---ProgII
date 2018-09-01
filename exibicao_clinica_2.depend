@@ -1,18 +1,22 @@
 # depslib dependency file v1.0
-1535744978 source:d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\main.cpp
+1535841154 source:d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\main.cpp
 	<iostream>
-	<stdlib.h>
-	<stdio.h>
+	<windows.h>
+	<string.h>
+	<sstream>
 	<fstream>
+	<conio2.h>
+	<time.h>
+	"struct.h"
+	"design.h"
+	"consultas.h"
 	"funcoes.h"
 
-1535745768 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\funcoes.h
-	<iostream>
-	<stdlib.h>
-	<stdio.h>
-	<fstream>
-	"struct.h"
-	<string.h>
+1535845065 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\funcoes.h
 
-1535743677 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\struct.h
+1535841415 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\struct.h
+
+1535132620 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\design.h
+
+1535840033 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\consultas.h
 

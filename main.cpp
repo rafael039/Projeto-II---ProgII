@@ -1,9 +1,21 @@
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
+#include <windows.h>
+#include <string.h>
+#include <sstream>
+
 #include <fstream>
-#include "funcoes.h"
+#include <conio2.h>
+#include <time.h>
+
+
 using namespace std;
+
+#include "struct.h"
+#include "design.h"
+#include "consultas.h"
+#include "funcoes.h"
+
+
 
 int main()
 {
@@ -15,10 +27,11 @@ int main()
     cout << "[4] Sair" << endl;
 
     cin >> opcao;
+    int *crm;
     switch(opcao)
     {
     case 1:
-        listarConsultaDia();
+        listarConsulta(crm);
         espera_limpa();
         break;
     case 2:
@@ -26,12 +39,13 @@ int main()
         espera_limpa();
         break;
     case 3:
-        escolhasPacientes();
+        listarConsultaDia(crm);
+        espera_limpa();
         break;
     case 4:
-        exit;
         espera_limpa();
         break;
     }
+
     return 0;
 }

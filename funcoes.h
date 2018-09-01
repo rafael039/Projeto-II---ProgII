@@ -1,13 +1,5 @@
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
-#include "struct.h"
-#include <string.h>
-
-using namespace std;
-
-void listarConsultaDia();
+void listarConsulta(int *crm);
+void listarConsultaDia(int *crm);
 void espera_limpa();
 void relatorioMedico();
 void escolhasPacientes();
@@ -15,60 +7,144 @@ void escolhasPacientes();
 
 //Listar medicos por dia
 
-void listarConsultaDia()
+void listarConsulta(int *crm)
 {
-    fstream arq_medico;
+    crm = new int;
     fstream arq_consulta;
     clinica m,c;
+    consulta buscaConsulta;
     int i=0;
     int tot_med=0;
 
-    //Conta os registros do arquivo medico
-    arq_medico.open("medicos.txt",ios::in);
-    arq_medico.read((char *)(&m),sizeof(clinica));
-    while(arq_medico && !arq_medico.eof())
-    {
-        arq_medico.read((char *)(&m),sizeof(clinica));
-        tot_med++;
-    }
-    arq_medico.close();
+    *crm=123;
 
-    //Criar um vetor dinamico
-    clinica vet[tot_med];
 
-    //Carregar do arquivo para o vetor do tipo CLINICA
-    arq_medico.open("medicos.txt",ios::in);
-    arq_medico.read((char *)(&m),sizeof(clinica));
-    while(arq_medico && !arq_medico.eof())
-    {
-        vet[i]=m;
-        i++;
-        arq_medico.read((char *)(&m),sizeof(clinica));
-    }
-    arq_medico.close();
-
-    //Compara a o vetor com os dados do arquivo consulta
-    i=0;
     arq_consulta.open("consultas.txt",ios::in);
-    arq_consulta.read((char *)(&c),sizeof(clinica));
+    arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
     while(arq_consulta && !arq_consulta.eof())
     {
-        if(vet[i].crm == c.crm)
+        if(*crm == buscaConsulta.crm)
         {
-            cout<<"Medicos: "<<vet[i].crm<<endl;
-            cout<<"    Consulta: "<<c.crm<<endl<<endl;
+            break;
+
         }
-        i++;
-        arq_consulta.read((char *)(&c),sizeof(clinica));
+        arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
     }
     arq_consulta.close();
+    cliente buscaCliente;
+
+    //===============================
+    arq_consulta.open("clientes.txt",ios::in);
+    arq_consulta.read((char *)(&buscaCliente),sizeof(cliente));
+    while(arq_consulta && !arq_consulta.eof())
+    {
+        if(strcmp(buscaConsulta.cpfCli,buscaCliente.cpf)==0)
+        {
+            break;
+
+        }
+        arq_consulta.read((char *)(&buscaCliente),sizeof(cliente));
+    }
+    arq_consulta.close();
+
+    cout<<"CRM: " << buscaConsulta.crm << endl;
+        if (buscaConsulta.turno == 0)
+            cout << "Turno: Manha" << endl;
+        else
+            cout << "Turno: Tarde " << endl;
+    cout << "NOME: "<< buscaCliente.nome<< endl;
+    cout << "CPF: "<< buscaConsulta.cpfCli << endl;
+    cout<<"Data: "<<buscaConsulta.dataConsulta << endl << endl;
+
+
 }
+
+void listarConsultaDia(int *crm)
+{
+    crm = new int;
+
+    fstream arq_consulta;
+    clinica m,c;
+    int dia, mes, ano;
+    char consultDataHoje[9],listaPacDia[12][10],turnoPac[10];
+    dateSystem(dia, mes,ano);
+
+    sprintf(consultDataHoje,"%d%s%d%s%d",dia,"/",mes,"/",ano);
+    cout << "A data e: " << consultDataHoje << endl;
+
+    consulta buscaConsulta;
+    int i=0;
+    *crm=123;
+
+    //criar vetor[10] para armazenar qtd consultas
+    arq_consulta.open("consultas.txt",ios::in);
+    arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
+    while(arq_consulta && !arq_consulta.eof())
+    {
+        if(strcmp(buscaConsulta.dataConsulta,consultDataHoje)==0)
+        {
+           strcpy(listaPacDia[i],buscaConsulta.cpfCli);
+           turnoPac[i]=buscaConsulta.turno;
+           i++;
+
+        }
+
+        arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
+    }
+    arq_consulta.close();
+    cliente buscaCliente;
+
+    //===============================
+    arq_consulta.open("clientes.txt",ios::in);
+    arq_consulta.read((char *)(&buscaCliente),sizeof(cliente));
+    while(arq_consulta && !arq_consulta.eof())
+    {
+        if(strcmp(buscaConsulta.dataConsulta,buscaCliente.cpf)==0)
+        {
+            break;
+
+        }
+        arq_consulta.read((char *)(&buscaCliente),sizeof(cliente));
+    }
+    arq_consulta.close();
+    if(i==0)
+        cout<<"Nao ha pacientes para o dia de hoje";
+    //j<=i ||  j<i
+    else{
+        arq_consulta.open("clientes.txt",ios::in);
+        arq_consulta.read((char *)(&buscaCliente),sizeof(cliente));
+        while(arq_consulta && !arq_consulta.eof())
+        {
+            if(strcmp(listaPacDia[i],buscaCliente.cpf)==0)
+            {
+            cout<<"CRM: " << buscaConsulta.crm << endl;
+                if (turnoPac[i] == 0)
+                    cout << "Turno: Manha" << endl;
+                else
+                    cout << "Turno: Tarde " << endl;
+            cout << "NOME: "<< buscaCliente.nome<< endl;
+            cout << "CPF: "<< buscaConsulta.cpfCli << endl;
+            cout<<"Data: "<<buscaConsulta.dataConsulta << endl << endl;
+            cout<<"\n=========================================\n";
+            i++;
+            }
+            arq_consulta.read((char *)(&buscaCliente),sizeof(cliente));
+      }
+      arq_consulta.close();
+    }
+}
+
+
 void espera_limpa()
 {
     cout<<endl<<endl;
     system("pause");
     system("cls");
 }
+
+// data do sistema
+
+
 
 // Relatorio
 
@@ -90,7 +166,7 @@ void relatorioMedico()
     {
         relatorio.read((char *)(&m),sizeof(cliente));
         cout << "\nNome: " <<  nome.nome;
-        cout << "\nDescricao: " << descricao.observacoes;
+        cout << "\nDescricao: " << descricao.obs;
     }
     relatorio.close();
 }
@@ -98,267 +174,6 @@ void relatorioMedico()
 
 //pacientes do dia
 
-void CadsClientes();
-void listarClientes();
-void atualizarcliente();
-void deletarcliente();
-void pesquisaCliente();
 
 
-void escolhasPacientes()
-{
-    int operacao;
-    while(true){
-        cout <<"\n\t\t\t=========================="<<endl;
-        cout <<"\t\t\t|     MODULO CLIENTE     |"<<endl;
-        cout <<"\t\t\t=========================="<<endl<<endl;
-        cout <<" 1 - Cadastra Cliente\n";
-        cout <<" 2 - Listar Todos os Clientes\n";
-        cout <<" 3 - Pesquisar Clientes por CPF\n";
-        cout <<" 4 - Renomear Cadastro de Cliente\n";
-        cout <<" 5 - Deletar Cadastro de Cliente\n";
-        cout <<" 6 - Sair do Sistema\n\n";
-        cout <<"Opcão:";
-        cin >> operacao;
-
-        switch (operacao){
-            case 1:
-                system("cls");
-                CadsClientes();
-                break;
-            case 2:
-                system("cls");
-                listarClientes();
-                break;
-            case 3:
-                system("cls");
-                pesquisaCliente();
-                break;
-            case 4:
-                atualizarcliente();
-                break;
-            case 5:
-                deletarcliente();
-                break;
-            case 6:
-                cout <<"\n\t\t\t=================================="<<endl;
-                cout <<"\t\t\t| Sair do Sistema - Volte Sempre |"<<endl;
-                cout <<"\t\t\t=================================="<<endl;
-                exit(0);
-                break;
-            default:
-                cout <<"\n\t\t\Você informou um opção incorreta. Por favor tente novamente\n"<<endl;
-                system ("pause");
-                break;
-        }
-        system("cls");
-    }
-}
-
-
-void CadsClientes(){
-    ofstream registropessoal("dadosclientes.txt", ios::app | ios::binary);
-	clinica pessoal;
-
-	cout <<"\n\t\tPreencha Corretamente os dados do Cliente\n\n";
-    pessoal.cod = 1;
-	cout <<"Informe o Nome:";
-	cin.ignore();
-    cin.getline(pessoal.nome,50);
-        for(int i = 0; i<=50; i++){
-                pessoal.nome[i]=toupper(pessoal.nome[i]);
-        }
-
-    cout <<"Informe o Idade do Cliente:";
-	cin >> pessoal.idade;
-	cin.ignore();
-
-	cout <<"Informe o CPF:";
-	cin.getline(pessoal.cpf,15);
-
-	cout <<"Informe o RG:";
-	cin.getline(pessoal.rg,15);
-
-	cout <<"Informe Cidade:";
-	cin.getline(pessoal.cidade,25);
-
-    for(int j = 0; j<=30; j++){
-                pessoal.cidade[j]=toupper(pessoal.cidade[j]);
-        }
-
-    cout <<"Informe o Endereço:";
-	cin.getline(pessoal.endereco,25);
-        for(int j = 0; j<=50; j++){
-                pessoal.endereco[j]=toupper(pessoal.endereco[j]);
-        }
-
-	registropessoal.write((char*)&pessoal,sizeof(clinica));
-    registropessoal.close();
-}
-
-void listarClientes(){
-
-	ifstream lerrcliente("dadosclientes.txt", ios::in | ios::binary);
-    clinica pessoal;
-
-	cout <<"\n\t\t\t========================"<<endl;
-	cout <<"\t\t\t|     CLIENTES ATIVOS     |"<<endl;
-	cout <<"\t\t\t========================"<<endl<<endl;
-        if(lerrcliente.fail()){
-             cout<<"\n\n\t\t\tOps! Não existe Arquivo.\n\n"<<endl;
-             system("PAUSE");
-             return;
-             }
-	lerrcliente.read((char*)&pessoal,sizeof(clinica));
-    while (!lerrcliente.eof()) {
-
-    	if(pessoal.cod == 1){
-            cout<<"Nome do Cliente:";
-            cout<<pessoal.nome<<endl;
-            cout<<"Idade do Cliente:";
-            cout<<pessoal.idade<<endl;
-            cout<<"CPF:";
-            cout<<pessoal.cpf<<endl;
-            cout<<"RG:";
-            cout<<pessoal.rg<<endl;
-            cout<<"Cidade:";
-            cout<<pessoal.cidade<<endl;
-            cout<<"Endereço:";
-            cout<<pessoal.endereco<<endl<<endl;
-	    }
-
-		lerrcliente.read((char*)&pessoal,sizeof(clinica));
-	}
-
-    system("PAUSE");
-    lerrcliente.close();
-}
-
-void atualizarcliente(){
-     ofstream registropessoal("dadosclientes.txt",  ios::binary | ios::in | ios::out | ios::ate);
-     clinica pessoal;
-
-         if(registropessoal.fail())
-            {
-                 cout<<"\n\n\t\tOps! Não existe Arquivo.\n\n"<<endl;
-                 system("PAUSE");
-                 return;
-            }
-
-	 int psc2;
-
-     cout <<"Posição do Cadastro do Cliente:";
-     cin >>psc2;
-
-     registropessoal.seekp((psc2-1)*sizeof(clinica));
-
-	 cout <<"\n\t\tPreencha Corretamente os dados do Cliente\n\n";
-    pessoal.cod = 1;
-	cout <<"Informe o Nome:";
-	cin.ignore();
-    cin.getline(pessoal.nome,50);
-        for(int i = 0; i<=50; i++){
-                pessoal.nome[i]=toupper(pessoal.nome[i]);
-        }
-
-    cout <<"Informe o Idade do Cliente:";
-	cin >> pessoal.idade;
-	cin.ignore();
-
-	cout <<"Informe o CPF:";
-	cin.getline(pessoal.cpf,15);
-
-	cout <<"Informe o RG:";
-	cin.getline(pessoal.rg,15);
-
-	cout <<"Informe Cidade:";
-	cin.getline(pessoal.cidade,25);
-
-    for(int j = 0; j<=30; j++){
-                pessoal.cidade[j]=toupper(pessoal.cidade[j]);
-        }
-
-    cout <<"Informe o Endereço:";
-	cin.getline(pessoal.endereco,25);
-        for(int j = 0; j<=50; j++){
-                pessoal.endereco[j]=toupper(pessoal.endereco[j]);
-        }
-
-	 registropessoal.write((char*)&pessoal,sizeof(clinica));
-     registropessoal.close();
-}
-
-void deletarcliente(){
-     ofstream registropessoal("dadosclientes.txt",  ios::binary | ios::in | ios::out | ios::ate);
-	 clinica pessoal;
-	 int psc2;
-
-         if(registropessoal.fail())
-            {
-                 cout<<"\n\n\t\tOps! Não existe Arquivo.\n\n"<<endl;
-                 system("PAUSE");
-                 return;
-            }
-
-         cout <<"Posição do Cadastro do Cliente:";
-         cin >>psc2;
-
-     registropessoal.seekp((psc2-1)*sizeof(clinica));
-
-	 pessoal.cod = 0;
-
-        cout <<"\n\t\t\t=================================="<<endl;
-        cout <<"\t\t\t|  Cliente Deletado com sucesso  |"<<endl;
-        cout <<"\t\t\t=================================="<<endl;
-
-	 registropessoal.write((char*)&pessoal,sizeof(clinica));
-     registropessoal.close();
-     system ("pause");
-}
-
-void pesquisaCliente(){
-
-    char CPF[15];
-    int achou = 0;
-    ifstream lerrcliente("dadosclientes.txt", ios::in | ios::binary);
-    clinica pessoal;
-
-       if(lerrcliente.fail())
-        {
-            cout<<"\n\n\t\tOps! Não existe Arquivo.\n\n"<<endl;
-            system("PAUSE");
-            return;
-        }
-
-    cout<<"\n\nEntre com o CPF do Clinte a ser pesquisado: ";
-    cin>>CPF;
-
-    lerrcliente.read((char*)&pessoal,sizeof(clinica));
-    while (!lerrcliente.eof())
-        {
-    	if ((strcmp(CPF,pessoal.cpf)== 0)&& (pessoal.cod == 1)){
-            achou = 1;
-            cout<<"\n\nNome do Cliente:";
-            cout<<pessoal.nome<<endl;
-            cout<<"Idade do Cliente:";
-            cout<<pessoal.idade<<endl;
-            cout<<"CPF:";
-            cout<<pessoal.cpf<<endl;
-            cout<<"RG:";
-            cout<<pessoal.rg<<endl;
-            cout<<"Cidade:";
-            cout<<pessoal.cidade<<endl;
-            cout<<"Endereço:";
-            cout<<pessoal.endereco<<endl<<endl;
-	    }
-
-		lerrcliente.read((char*)&pessoal,sizeof(clinica));
-	}
-	 if(achou == 0)
-        {
-        cout<<"\n\n\t\tOps! CPF não cadastrado.\n\n"<<endl;
-        }
-    system("PAUSE");
-    lerrcliente.close();
-}
 

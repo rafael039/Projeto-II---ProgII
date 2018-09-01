@@ -1,0 +1,10 @@
+	clinica m;
+        arq_medico.open("medicos.txt",ios::in);
+        arq_medico.read((char *)(&m),sizeof(clinica));
+        while(arq_medico && !arq_medico.eof())
+        {
+            arq_medico.read((char *)(&m),sizeof(clinica));
+            i++;
+        }
+        arq_medico.close();
+        return i;
