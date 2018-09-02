@@ -45,7 +45,8 @@ typedef struct{
   char cpfCli[12];
   char dataConsulta[10];
   int turno;
-  //int ativo;
+  int ativo;
+  int tipoConsulta; // 1 - retorno e 2 - consulta
 }consulta;
 
 #endif // STRUCT_H_INCLUDED
