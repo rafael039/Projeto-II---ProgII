@@ -1,9 +1,6 @@
 void listarConsulta(int *crm);
 void listarConsultaDia(int *crm);
 void espera_limpa();
-void relatorioMedico();
-void escolhasPacientes();
-
 
 //Listar consultas por dia
 
