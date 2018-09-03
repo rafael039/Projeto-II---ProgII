@@ -35,7 +35,6 @@ typedef struct{
   char cidade[25];
   char UF[3];
   char email[40];
-  char obs[50];
   char cep[10];
   int ativo;
 }cliente;
@@ -47,6 +46,17 @@ typedef struct{
   int turno;
   int ativo;
   int tipoConsulta; // 1 - retorno e 2 - consulta
+  char obs[50];  //importante para relatorio do medico
 }consulta;
+
+typedef struct{
+    char nome[40];
+    char cpf[12];
+    int crm;
+    char dataConsulta[10];
+    char observacoes[50];
+    char sintomas[50];
+    char conclusao[50];
+}relatorio;
 
 #endif // STRUCT_H_INCLUDED

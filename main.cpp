@@ -20,10 +20,10 @@ using namespace std;
 int main()
 {
     int opcao;
-    cout << "Escolha as opcoes: " << endl;
-    cout << "[1] Exibir Consultas do dia: " << endl;
-    cout << "[2] Relatorio do medico: " << endl;
-    cout << "[3] Pacientes do dia: " << endl;
+    cout << "Escolha as opcoes: " << endl << endl;
+    cout << "[1] Exibir Consultas: " << endl;
+    cout << "[2] Relatorio do Medico: " << endl;
+    cout << "[3] Exibir Pacientes do Dia: " << endl;
     cout << "[4] Sair" << endl;
 
     cin >> opcao;
@@ -34,15 +34,12 @@ int main()
         listarConsulta(crm);
         espera_limpa();
         break;
-    case 2:
-        relatorioMedico();
-        espera_limpa();
-        break;
     case 3:
         listarConsultaDia(crm);
         espera_limpa();
         break;
     case 4:
+        cout << "Tchau !!!";
         espera_limpa();
         break;
     }

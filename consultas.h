@@ -1,3 +1,5 @@
+// arquivo do grupo de luiz para poder fazer comunicação
+
 void dados(int cpf);
 void cadConsulta(char cpfCli[],int cpfSec);
 void cadastraClientes(char cpfCli[]);
@@ -317,9 +319,6 @@ void cadastraClientes(char cpfCli[]){
 
         gotoxy(62,26);
         cin.getline(cadCliente.endBairro,30);
-
-        gotoxy(64,28);
-        cin.getline(cadCliente.obs,50);
 
         //strcpy(cadCliente.cpf,cpfCli);
 
