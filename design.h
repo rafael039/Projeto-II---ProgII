@@ -9,6 +9,7 @@ void barraNotificacao();
 void criaMenu(int altura,int largura,int cordX,int cordY,int corFundo,int corLetra){
 int i,j;
 
+
     for (i=0;i<altura;i++){
           for (j=0;j<largura;j++){
             textbackground(corFundo);
@@ -31,8 +32,6 @@ void logo(){
 void barraNotificacao(){
   char horas[1];
   _strtime(horas);
-  criaMenu(3,4,90,7,COR_LETRA2,GREEN);
-  gotoxy(95,8);
   criaMenu(3,10,84,7,COR_LOGO,COR_LETRA2);
   gotoxy(85,8);
   cout<<horas;

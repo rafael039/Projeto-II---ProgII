@@ -29,18 +29,23 @@ int main()
 
 
     criaMenu(3,30,34,14,COR_LOGO,COR_LETRA2);
-    gotoxy(32,14);
-    cout << "\n Escolha as opcoes: " << endl << endl;
+    gotoxy(40,15);
+    cout << "ESCOLHA AS OPCOES" << endl << endl;
     criaMenu(5,30,34,16,COR_LETRA2,COR_LETRA1);
-    gotoxy(6,11);
-    cout << "[1] Exibir Consultas: " << endl;
-    gotoxy(6,12);
-    cout << "[2] Exibir Pacientes do Dia: " << endl;
-    gotoxy(6,13);
+    gotoxy(35,16);
+    cout << "[1] Exibir Consultas" << endl;
+    gotoxy(35,17);
+    cout << "[2] Exibir Pacientes do Dia" << endl;
+    gotoxy(35,18);
     cout << "[3] Sair" << endl;
 
+    criaMenu(2,30,34,20,COR_LOGO,COR_LETRA2);
+    gotoxy(40,21);
+    cout << "OPCAO ESCOLHIDA: ";
     cin >> opcao;
-    gotoxy(6,14);
+    gotoxy(38,20);
+
+
 
     // Ponteiro q aponta outro ponteiro de crm, para comparar medico
     int *crm;

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1535978576 source:d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\main.cpp
+1535986549 source:d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\main.cpp
 	<iostream>
 	<windows.h>
 	<string.h>
@@ -13,11 +13,11 @@
 	"consultas.h"
 	"funcoes.h"
 
-1535981089 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\funcoes.h
+1535986647 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\funcoes.h
 
 1535978576 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\struct.h
 
-1535964732 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\design.h
+1535985358 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\design.h
 
 1535933890 d:\ufs\2.2º período\programação 2\estudando\exibicao_clinica_2\consultas.h
 

@@ -15,11 +15,12 @@ void listarConsulta(int *crm)
     dateSystem(dia, mes,ano);
 
     sprintf(consultDataHoje,"%d%s%d%s%d",dia,"/",mes,"/",ano);
-    cout << "A data e: " << consultDataHoje << endl;
+    cout << "DATA DE HOJE: " << consultDataHoje << endl << endl << endl;
 
     consulta buscaConsulta;
     int tot=0;
     *crm=444;
+    //*crm == buscaConsulta.consulta
 
     //criar vetor[10] para armazenar qtd consultas do dia
     arq_consulta.open("consultas.txt",ios::in);
@@ -112,11 +113,12 @@ void listarConsultaDia(int *crm)
     dateSystem(dia, mes,ano);
 
     sprintf(consultDataHoje,"%d%s%d%s%d",dia,"/",mes,"/",ano);
-    cout << "Data: " << consultDataHoje << endl << endl << endl;
+    cout << "DATA DE HOJE: " << consultDataHoje << endl << endl << endl;
 
     consulta buscaConsulta;
     int tot=0;
     *crm=444;
+    //*crm == buscaConsulta.consulta
 
     //criar vetor[10] para armazenar qtd consultas do dia
     arq_consulta.open("consultas.txt",ios::in);
