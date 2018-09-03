@@ -112,7 +112,7 @@ void listarConsultaDia(int *crm)
     dateSystem(dia, mes,ano);
 
     sprintf(consultDataHoje,"%d%s%d%s%d",dia,"/",mes,"/",ano);
-    cout << "A data e: " << consultDataHoje << endl;
+    cout << "Data: " << consultDataHoje << endl << endl << endl;
 
     consulta buscaConsulta;
     int tot=0;
@@ -181,68 +181,79 @@ void listarConsultaDia(int *crm)
     }
 
     //parte do relatorio
+    char opcao;
 
-    cout << "\t\t\t\n\n Atendimento" << endl;
-    int i,valida=0;
-    char cpfProcura[12];
-    do{
+    cout << "\n\nDeseja mostrar relatorio ?: " << endl;
+    cin >> opcao;
 
-          cout << "CPF: "  << endl;
-          fflush(stdin);
-          cin.getline(cpfProcura,12);
-          for( i =0; i<tot; i++ )
-          {
-              if(strcmp(cpfProcura,listaCpf[i])==0)
+    if(opcao == 's' || opcao == 'S')
+    {
+        system("cls");
+        cout << "\t\t\t\n\n Atendimento" << endl;
+        int i,valida=0;
+        char cpfProcura[12];
+        do{
+
+              cout << "CPF: "  << endl;
+              fflush(stdin);
+              cin.getline(cpfProcura,12);
+              for( i =0; i<tot; i++ )
               {
-                  valida = 1;
-                  break;
+                  if(strcmp(cpfProcura,listaCpf[i])==0)
+                  {
+                      valida = 1;
+                      break;
+                  }
               }
-          }
-          if (valida==0)
-            cout<<"inexistente";
-      }while(valida==0);
-      cout << "Paciente selecionado: " << endl;
+              if (valida==0)
+                cout<<"inexistente";
+              }while(valida==0);
+          cout << "Paciente selecionado: " << endl;
 
-        arq_consulta.open("consultas.txt",ios::in);
-        arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
-            while(arq_consulta && !arq_consulta.eof())
-            {
-                if(strcmp(cpfProcura,buscaConsulta.cpfCli)==0)
-                {
-                    if (turnoPac[i] == 0)
-                        cout << "Turno: Manha" << endl;
-                    else
-                        cout << "Turno: Tarde " << endl;
-                    int k;
-                    for(k=0; k<tot; k++){
-                        if(strcmp(cpfProcura,listaCpf[i])==0)
-                            break;
-                    }
-                    cout << "NOME: "<< listaNome[k]<< endl;
-                    cout << "CPF: "<< buscaConsulta.cpfCli << endl;
-                    cout<<"Data: "<<buscaConsulta.dataConsulta << endl << endl;
-                    cout<<"\n=========================================\n";
-                    i++;
-                }
+            arq_consulta.open("consultas.txt",ios::in);
             arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
-            }
-            arq_consulta.close();
+                while(arq_consulta && !arq_consulta.eof())
+                {
+                    if(strcmp(cpfProcura,buscaConsulta.cpfCli)==0)
+                    {
+                        if (turnoPac[i] == 0)
+                            cout << "Turno: Manha" << endl;
+                        else
+                            cout << "Turno: Tarde " << endl;
+                        int k;
+                        for(k=0; k<tot; k++){
+                            if(strcmp(cpfProcura,listaCpf[i])==0)
+                                break;
+                        }
+                        cout << "NOME: "<< listaNome[k]<< endl;
+                        cout << "CPF: "<< buscaConsulta.cpfCli << endl;
+                        cout<<"Data: "<<buscaConsulta.dataConsulta << endl << endl;
+                        cout<<"\n=========================================\n";
+                        i++;
+                    }
+                arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
+                }
+                arq_consulta.close();
 
-            relatorio insereDado;
-            strcpy(insereDado.cpf,cpfProcura);
-            insereDado.crm = *crm;
-            strcpy(insereDado.dataConsulta,consultDataHoje);
-            cout << "Sintomas do paciente: " << endl;
-            cin.getline(insereDado.sintomas,50);
-            cout << "Observacao: " << endl;
-            cin.getline(insereDado.observacoes,50);
-            cout << "Conclusao: " << endl;
-            cin.getline(insereDado.conclusao,50);
+                relatorio insereDado;
+                strcpy(insereDado.cpf,cpfProcura);
+                insereDado.crm = *crm;
+                strcpy(insereDado.dataConsulta,consultDataHoje);
+                cout << "Sintomas do paciente: " << endl;
+                cin.getline(insereDado.sintomas,50);
+                cout << "Observacao: " << endl;
+                cin.getline(insereDado.observacoes,50);
+                cout << "Conclusao: " << endl;
+                cin.getline(insereDado.conclusao,50);
 
-            ofstream insereRelatorio;
-            insereRelatorio.open ("relatorio.txt",ios::in | ios::app);
-                insereRelatorio.write((const char*)(&insereRelatorio),sizeof(relatorio));
-                insereRelatorio.close();
+                ofstream insereRelatorio;
+                insereRelatorio.open ("relatorio.txt",ios::in | ios::app);
+                    insereRelatorio.write((const char*)(&insereRelatorio),sizeof(relatorio));
+                    insereRelatorio.close();
+    }
+    else
+        return;
+
 }
 
 

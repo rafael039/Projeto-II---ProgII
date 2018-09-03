@@ -47,6 +47,7 @@ typedef struct{
   int ativo;
   int tipoConsulta; // 1 - retorno e 2 - consulta
   char obs[50];  //importante para relatorio do medico
+  double taxa;
 }consulta;
 
 typedef struct{

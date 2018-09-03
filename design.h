@@ -1,4 +1,3 @@
-
 #define COR_LOGO CYAN
 #define COR_FUNDO LIGHTGRAY
 #define COR_LETRA1 BLACK
@@ -24,7 +23,7 @@ int i,j;
 void logo(){
   criaMenu(5,100,1,1,COR_LOGO,COR_LETRA2);
   gotoxy(39,3);
-  cout<<"CLÍNICA - SECRETARIA";
+  cout<<"CLINICA - LISTAGEM";
 
 }
 
@@ -32,9 +31,8 @@ void logo(){
 void barraNotificacao(){
   char horas[1];
   _strtime(horas);
-  criaMenu(3,4,94,7,COR_LETRA2,GREEN);
+  criaMenu(3,4,90,7,COR_LETRA2,GREEN);
   gotoxy(95,8);
-  cout<<"ON";
   criaMenu(3,10,84,7,COR_LOGO,COR_LETRA2);
   gotoxy(85,8);
   cout<<horas;
