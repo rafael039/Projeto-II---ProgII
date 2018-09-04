@@ -9,7 +9,7 @@ typedef struct{
     int cpf;
     char endereco[25];
     double telefone;
-    char cargo[11];
+    char cargo[12];
     int crm;  // Primary key {Medico}
     int idSecrt; // Primary key {Secretária}
     double taxa; // Para Médico valor da Consulta | Para Secretária valor do salário
