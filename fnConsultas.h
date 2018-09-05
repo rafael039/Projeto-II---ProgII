@@ -1,3 +1,4 @@
+
 void dados(int *cpf);
 void cadConsulta(char cpfCli[],int *cpfSec);
 void cadastraClientes(char cpfCli[]);

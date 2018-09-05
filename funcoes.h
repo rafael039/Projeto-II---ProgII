@@ -1,7 +1,7 @@
+void menu();
 void listarConsulta(int *crm);
 void listarConsultaDia(int *crm);
 void espera_limpa();
-void menu();
 
 
 void menu()
@@ -31,34 +31,35 @@ void menu()
 
     // Ponteiro q aponta outro ponteiro de crm, para comparar medico
     int *crm;
-    switch(opcao)
-    {
-        case 1:
-            system("cls");
-            listarConsulta(crm);
-            espera_limpa();
-            break;
-        case 2:
-            system("cls");
-            listarConsultaDia(crm);
-            espera_limpa();
-            break;
-        case 3:
-            system("cls");
-            cout << "Tchau !!!";
-            system("cls");
-            break;
-        default:
-            gotoxy(38,22);
-            textcolor(RED);
-            cout << "OPCAO INVALIDA !!";
-            break;
-    }
-
-    system("pause");
+    do{
+        switch(opcao)
+        {
+            case 1:
+                system("cls");
+                listarConsulta(crm);
+                espera_limpa();
+                break;
+            case 2:
+                system("cls");
+                listarConsultaDia(crm);
+                espera_limpa();
+                break;
+            case 3:
+                exit;
+                break;
+            default:
+                gotoxy(40,24);
+                textcolor(RED);
+                cout << "OPCAO INVALIDA !!";
+                gotoxy(38,20);
+                getch();
+                menu();
+                break;
+        }
+    }while(opcao == 1 && opcao == 2);
+    system("cls");
+    exit;
 }
-
-
 
 
 
@@ -66,8 +67,7 @@ void menu()
 
 void listarConsulta(int *crm)
 {
-     crm = new int;
-
+    crm = new int;
     fstream arq_consulta;
     clinica m,c;
     int dia, mes, ano;
@@ -77,7 +77,7 @@ void listarConsulta(int *crm)
 
     consulta buscaConsulta;
     int tot=0;
-    *crm=123;
+    *crm=312;
     //*crm = buscaConsulta.crm;
 
     //criar vetor[10] para armazenar qtd consultas do dia
@@ -127,7 +127,7 @@ void listarConsulta(int *crm)
 
         arq_consulta.open("clientes.txt",ios::in);
         arq_consulta.read((char *)(&buscaConsulta),sizeof(consulta));
-        int contador = 0, y=11;
+        int contador = 0, y = 11;
         while(arq_consulta && !arq_consulta.eof())
         {
             if(buscaCliente.ativo)
@@ -164,18 +164,18 @@ void listarConsulta(int *crm)
                 if(strcmp(listaCpf[i],buscaConsulta.cpfCli)==0)
                 {
                     gotoxy(15,y++);
-                    cout << "CRM.: " << buscaConsulta.crm << endl;
+                    cout << "CRM..: " << buscaConsulta.crm << endl;
                     gotoxy(15,y++);
                     if (turnoPac[i] == 0)
                         cout << "Turno: Manha" << endl;
                     else
                         cout << "Turno: Tarde " << endl;
                     gotoxy(15,y++);
-                    cout << "NOME: "<< listaNome[i]<< endl;
+                    cout << "NOME.: "<< listaNome[i]<< endl;
                     gotoxy(15,y++);
-                    cout << "CPF.: "<< buscaConsulta.cpfCli << endl;
+                    cout << "CPF..: "<< buscaConsulta.cpfCli << endl;
                     gotoxy(15,y++);
-                    cout << "Data: "<<buscaConsulta.dataConsulta << endl << endl;
+                    cout << "Data.: "<<buscaConsulta.dataConsulta << endl << endl;
                     gotoxy(15,y++);
                     cout << "==================================================" << endl;
                     y++;
@@ -191,8 +191,6 @@ void listarConsulta(int *crm)
         menu();
 
     }
-
-
 }
 
 
@@ -217,7 +215,7 @@ void listarConsultaDia(int *crm)
 
     consulta buscaConsulta;
     int tot=0;
-    *crm=123;
+    *crm=312;
     //*crm = buscaConsulta.crm;
 
     //criar vetor[10] para armazenar qtd consultas do dia
@@ -289,18 +287,18 @@ void listarConsultaDia(int *crm)
                 if(strcmp(listaCpf[i],buscaConsulta.cpfCli)==0)
                 {
                     gotoxy(15,y++);
-                    cout<<"CRM: " << buscaConsulta.crm << endl;
+                    cout<<"CRM..: " << buscaConsulta.crm << endl;
                     gotoxy(15,y++);
                     if (turnoPac[i] == 0)
                         cout << "Turno: Manha" << endl;
                     else
                         cout << "Turno: Tarde " << endl;
                     gotoxy(15,y++);
-                    cout << "NOME: "<< buscaCliente.nome<< endl;
+                    cout << "NOME.: "<< buscaCliente.nome<< endl;
                     gotoxy(15,y++);
-                    cout << "CPF: "<< buscaConsulta.cpfCli << endl;
+                    cout << "CPF..: "<< buscaConsulta.cpfCli << endl;
                     gotoxy(15,y++);
-                    cout<<"Data: "<< buscaConsulta.dataConsulta << endl;
+                    cout<<"Data.: "<< buscaConsulta.dataConsulta << endl;
                     gotoxy(15,y++);
                     cout<<"=========================================";
                     y++;
@@ -313,7 +311,9 @@ void listarConsultaDia(int *crm)
       arq_consulta.close();
     }
 
+
     //parte do relatorio
+
     char opcao;
 
     cout << "\nDeseja mostrar relatorio ? (S/N): " << endl;
@@ -339,8 +339,13 @@ void listarConsultaDia(int *crm)
                   }
               }
               if (valida==0)
-                cout<<"inexistente";
-              }while(valida==0);
+                 cout<<"CPF INEXISTENTE !!!";
+
+              system("cls");
+              getch();
+
+          }while(valida==0);
+
           cout << "Paciente selecionado: " << endl;
 
             arq_consulta.open("consultas.txt",ios::in);

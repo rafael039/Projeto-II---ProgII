@@ -3,6 +3,7 @@
 #define COR_LETRA1 BLACK
 #define COR_LETRA2 WHITE
 
+void criaMenu(int altura,int largura,int cordX,int cordY,int corFundo,int corLetra);
 void logo();
 void barraNotificacao();
 
